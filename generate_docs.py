@@ -105,12 +105,7 @@ def generate_documents(excel_path, template_path):
     df = clean_excel(df)
     columns = df.columns
     date_str = extract_activity_columns(columns)["college_campus"]["completed"].split("_")[-1]
-    try:
-
-        date_obj = datetime.strptime(date_str, "%d%m%y").date().strftime("%d-%m-%y")
-    except:
-        date_obj = datetime.strptime(date_str, "%d%m%Y").date().strftime("%d-%m-%Y")
-    
+    date_obj = datetime.strptime(date_str, "%d%m%y").date().strftime("%d-%m-%y")
     for _, row in df.iterrows():
         division = row.iloc[0]
 
@@ -122,7 +117,7 @@ def generate_documents(excel_path, template_path):
             if "Date:" in p.text:
                 p.text = p.text.replace(
                     "Date:",
-                    f"Date: {pd.Timestamp.now().strftime('%d-%m-%Y')}"
+                    f"Date: {pd.Timestamp.now().strftime('%d.%m.%Y')}"
                 )
             if "Re: Review of strategic activities as at xxxxxxxx" in p.text:
                 p.text = p.text.replace(
